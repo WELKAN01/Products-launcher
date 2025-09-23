@@ -1,3 +1,9 @@
 [submodule "client-gateway"]
 	path = client-gateway
 	url = https://github.com/WELKAN01/Client-Gateway.git
+[submodule "ms-order"]
+	path = ms-order
+	url = https://github.com/WELKAN01/Microservicio-order-nest.git
+[submodule "ms-product"]
+	path = ms-product
+	url = https://github.com/WELKAN01/Microservicio-products-nest.git
