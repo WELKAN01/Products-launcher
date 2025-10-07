@@ -7,3 +7,6 @@
 [submodule "ms-product"]
 	path = ms-product
 	url = https://github.com/WELKAN01/Microservicio-products-nest.git
+[submodule "ms-payments"]
+	path = ms-payments
+	url = https://github.com/WELKAN01/payment-ms.git
