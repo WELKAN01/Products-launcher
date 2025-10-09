@@ -52,3 +52,17 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: ordersdb
+
+  Payments-ms:
+    container_name: ms-payments
+    build: ./ms-payments
+    volumes:
+      - ./ms-payments/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=${PAYMENTS_MS_PORT}
+      - NATS_SERVER=nats://nats-server:4222
+      - CLIENT_ID_SANDBOX=${CLIENT_ID_SANDBOX}
+      - CLIENT_SECRET_SANDBOX=${CLIENT_SECRET_SANDBOX}
+      - WEBHOOK_ID_SANDBOX=${WEBHOOK_ID_SANDBOX}
+      - DOMAIN_PAYPAL_SANBOX=${DOMAIN_PAYPAL_SANBOX}
