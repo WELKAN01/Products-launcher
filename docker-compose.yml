@@ -22,6 +22,7 @@ services:
     build: ./ms-product
     volumes:
       - ./ms-product/src:/usr/src/app/src
+      - ./ms-product/dev.db:/usr/src/app/dev.db
     command: npm run start:dev
     environment:
       - PORT=3001
@@ -34,10 +35,10 @@ services:
     build: ./ms-order
     volumes:
       - ./ms-order/src:/usr/src/app/src
-    command: npm run start:dev
+    command: sh -c "sleep 5 && npm run start:dev"
     environment:
       - PORT=3002
-      - DATABASE_URL=postgresql://postgres:123456@orders-db:5432/ordersdb?schema=public
+      - DATABASE_URL=postgresql://postgres:123456@orders-database:5432/ordersdb?schema=public
       - NATS_SERVER=nats://nats-server:4222
 
   orders-db:
