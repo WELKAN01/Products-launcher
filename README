@@ -56,3 +56,16 @@ git submodule update --remote
 Si se trabaja en el repositorio que tiene los sub-módulos, **primero actualizar y hacer push** en el sub-módulo y **después** en el repositorio principal. 
 
 Si se hace al revés, se perderán las referencias de los sub-módulos en el repositorio principal y tendremos que resolver conflictos.
+
+
+## ✅ Resumen rápido
+
+| Situación                                   | Comando recomendado                           |
+|--------------------------------------------|----------------------------------------------|
+| Cambié solo código (src)                   | `docker compose up`                          |
+| Cambié dependencias o Dockerfile de uno    | `docker compose build <servicio> && docker compose up` |
+| Cambié dependencias o Dockerfile de todos  | `docker compose up --build`                  |
+| Contenedor fallando pero imagen ok         | `docker compose up --force-recreate`         |
+| Parar todo                                 | `docker compose down`                        |
+| Parar todo y borrar volúmenes              | `docker compose down -v`                     |
+| Ver logs de un servicio                    | `docker compose logs -f <servicio>`          |
