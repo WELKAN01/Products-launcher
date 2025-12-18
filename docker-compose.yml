@@ -17,6 +17,7 @@ services:
     environment:
       - PORT=${CLIENT_GATEWAY_PORT}
       - NATS_SERVER=nats://nats-server:4222
+      - KAFKA_BROKERS=kafka:9092
   
   products-ms:
     build: ./ms-product
@@ -69,3 +70,47 @@ services:
       - CLIENT_SECRET_SANDBOX=${CLIENT_SECRET_SANDBOX}
       - WEBHOOK_ID_SANDBOX=${WEBHOOK_ID_SANDBOX}
       - DOMAIN_PAYPAL_SANBOX=${DOMAIN_PAYPAL_SANBOX}
+
+
+  ms-auth:
+    build: ./ms-auth
+    volumes:
+      - ./ms-auth/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3004
+      - NATS_SERVERS=nats://nats-server:4222
+      - KAFKA_BROKERS=kafka:9092
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP= PLAINTEXT:PLAINTEXT
+  
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+    depends_on:
+      - kafka
