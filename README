@@ -69,3 +69,58 @@ Si se hace al revés, se perderán las referencias de los sub-módulos en el rep
 | Parar todo                                 | `docker compose down`                        |
 | Parar todo y borrar volúmenes              | `docker compose down -v`                     |
 | Ver logs de un servicio                    | `docker compose logs -f <servicio>`          |
+
+## Desplegar docker compose para desplegar producción
+
+### Comandos para desplegar en producción
+
+1. **Construir y levantar los servicios con Docker Compose (Producción)**
+   ```bash
+   docker-compose -f docker-compose.prod.yml up -d --build
+   ```
+
+2. **Construir las imágenes de forma explícita**
+   ```bash
+   docker-compose -f docker-compose.prod.yml build
+   ```
+
+3. **Levantar los servicios sin reconstruir**
+   ```bash
+   docker-compose -f docker-compose.prod.yml up -d
+   ```
+
+4. **Ver logs de todos los servicios en producción**
+   ```bash
+   docker-compose -f docker-compose.prod.yml logs -f
+   ```
+
+5. **Ver logs de un servicio específico**
+   ```bash
+   docker-compose -f docker-compose.prod.yml logs -f <nombre_del_servicio>
+   ```
+
+6. **Detener todos los servicios en producción**
+   ```bash
+   docker-compose -f docker-compose.prod.yml down
+   ```
+
+7. **Detener y eliminar volúmenes en producción**
+   ```bash
+   docker-compose -f docker-compose.prod.yml down -v
+   ```
+
+8. **Reiniciar servicios específicos**
+   ```bash
+   docker-compose -f docker-compose.prod.yml restart <nombre_del_servicio>
+   ```
+
+9. **Actualizar un servicio específico**
+   ```bash
+   docker-compose -f docker-compose.prod.yml build <nombre_del_servicio> && docker-compose -f docker-compose.prod.yml up -d
+   ```
+
+10. **Ver el estado de todos los contenedores**
+    ```bash
+    docker-compose -f docker-compose.prod.yml ps
+    ```
+
