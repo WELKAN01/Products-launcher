@@ -8,13 +8,13 @@ Esta guía describe paso a paso cómo **desplegar el aplicativo usando Docker Co
 
 ### 1️⃣ Crear y configurar el archivo `.env`
 
-* Copia el archivo de ejemplo:
+- Copia el archivo de ejemplo:
 
 ```bash
 cp .env.example .env
 ```
 
-* Ajusta las variables necesarias según tu entorno.
+- Ajusta las variables necesarias según tu entorno.
 
 ---
 
@@ -26,8 +26,8 @@ docker-compose up -d --build
 
 Esto:
 
-* Construye las imágenes
-* Levanta los contenedores en segundo plano (`-d`)
+- Construye las imágenes
+- Levanta los contenedores en segundo plano (`-d`)
 
 ---
 
@@ -35,25 +35,25 @@ Esto:
 
 Abre tu navegador y accede a:
 
-👉 **[http://localhost:3000](http://localhost:3000)**
+👉 **http\://localhost:3000**
 
 ---
 
 ### 4️⃣ Logs y administración básica
 
-* 📜 Ver logs:
+- 📜 Ver logs:
 
   ```bash
   docker-compose logs
   ```
 
-* ⛔ Detener servicios:
+- ⛔ Detener servicios:
 
   ```bash
   docker-compose down
   ```
 
-* 🔄 Reiniciar servicios:
+- 🔄 Reiniciar servicios:
 
   ```bash
   docker-compose restart
@@ -63,13 +63,13 @@ Abre tu navegador y accede a:
 
 ### 5️⃣ Eliminar y levantar nuevamente los servicios
 
-* Eliminar contenedores, volúmenes y redes:
+- Eliminar contenedores, volúmenes y redes:
 
 ```bash
 docker-compose down -v
 ```
 
-* Volver a construir y levantar:
+- Volver a construir y levantar:
 
 ```bash
 docker-compose up -d --build
@@ -157,3 +157,4 @@ Si trabajas en un repositorio que **contiene sub-módulos**:
 ---
 
 ✨ **Tip:** Mantén esta guía en el repositorio como `README.md` o `DEPLOY.md` para facilitar el onboarding del equipo.
+
