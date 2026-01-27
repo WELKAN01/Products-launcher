@@ -13,3 +13,6 @@
 [submodule "ms-auth"]
 	path = ms-auth
 	url = https://github.com/WELKAN01/ms-auth.git
+[submodule "ms-automatizacion"]
+	path = ms-automatizacion
+	url = https://github.com/WELKAN01/Automatizacion-Spring.git
