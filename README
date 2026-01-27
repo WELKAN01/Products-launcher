@@ -1,65 +1,164 @@
-# Pasos para desplegar el aplicativo con Docker Compose
+# 🚀 Guía de Despliegue con Docker Compose y Git Submodules
 
-1. **Crear y configurar el archivo `.env`**
-    - Copia el archivo `.env.example` a `.env` y ajusta las variables necesarias.
+Esta guía describe paso a paso cómo **desplegar el aplicativo usando Docker Compose** y cómo **trabajar correctamente con Git Submodules**, de forma clara y ordenada.
 
-2. **Construir y levantar los servicios con Docker Compose**
-    ```bash
-    docker-compose up -d --build
-    ```
+---
 
-3. **Verificar que la aplicación está corriendo**
-    - Accede a `http://localhost:3000` en tu navegador.
+## 🐳 Despliegue del aplicativo con Docker Compose
 
-4. **Logs y administración**
-    - Ver logs: `docker-compose logs`
-    - Detener servicios: `docker-compose down`
-    - Reiniciar servicios: `docker-compose restart`
+### 1️⃣ Crear y configurar el archivo `.env`
 
-5. **Eliminar y levantar nuevamente los servicios**
-    - Eliminar los contenedores, volúmenes y redes creados por Docker Compose:
-      ```bash
-      docker-compose down -v
-      ```
-    - Volver a construir y levantar los servicios:
-      ```bash
-      docker-compose up -d --build
-      ```
+- Copia el archivo de ejemplo:
 
-### Pasos para crear los Git Submodules
-
-
-1. Crear un nuevo repositorio en GitHub
-2. Clonar el repositorio en la máquina local
-3. Añadir el submodule, donde `repository_url` es la url del repositorio y `directory_name` es el nombre de la carpeta donde quieres que se guarde el sub-módulo (no debe de existir en el proyecto)
+```bash
+cp .env.example .env
 ```
+
+- Ajusta las variables necesarias según tu entorno.
+
+---
+
+### 2️⃣ Construir y levantar los servicios
+
+```bash
+docker-compose up -d --build
+```
+
+Esto:
+
+- Construye las imágenes
+- Levanta los contenedores en segundo plano (`-d`)
+
+---
+
+### 3️⃣ Verificar que la aplicación está corriendo
+
+Abre tu navegador y accede a:
+
+👉 **http\://localhost:3000**
+
+---
+
+### 4️⃣ Logs y administración básica
+
+- 📜 Ver logs:
+
+  ```bash
+  docker-compose logs
+  ```
+
+- ⛔ Detener servicios:
+
+  ```bash
+  docker-compose down
+  ```
+
+- 🔄 Reiniciar servicios:
+
+  ```bash
+  docker-compose restart
+  ```
+
+---
+
+### 5️⃣ Eliminar y levantar nuevamente los servicios
+
+- Eliminar contenedores, volúmenes y redes:
+
+```bash
+docker-compose down -v
+```
+
+- Volver a construir y levantar:
+
+```bash
+docker-compose up -d --build
+```
+
+---
+
+## 🔗 Pasos para crear y usar Git Submodules
+
+### 1️⃣ Crear un nuevo repositorio en GitHub
+
+Crea el repositorio que será usado como sub-módulo.
+
+---
+
+### 2️⃣ Clonar el repositorio principal
+
+```bash
+git clone <url-repositorio-principal>
+```
+
+---
+
+### 3️⃣ Añadir el sub-módulo
+
+> ⚠️ La carpeta destino **no debe existir** previamente.
+
+```bash
 git submodule add <repository_url> <directory_name>
 ```
-4. Añadir los cambios al repositorio (git add, git commit, git push)
-Ej:
-```
+
+---
+
+### 4️⃣ Guardar los cambios
+
+```bash
 git add .
 git commit -m "Add submodule"
 git push
 ```
-5. Inicializar y actualizar Sub-módulos, cuando alguien clona el repositorio por primera vez, debe de ejecutar el siguiente comando para inicializar y actualizar los sub-módulos
-```
+
+---
+
+### 5️⃣ Inicializar y actualizar sub-módulos
+
+Cuando alguien clona el repositorio por primera vez:
+
+```bash
 git submodule update --init --recursive
 ```
-6. Para actualizar las referencias de los sub-módulos
-```
+
+---
+
+### 6️⃣ Actualizar las referencias del sub-módulo
+
+```bash
 git submodule update --remote
 ```
 
+---
 
-## Importante
-Si se trabaja en el repositorio que tiene los sub-módulos, **primero actualizar y hacer push** en el sub-módulo y **después** en el repositorio principal. 
+## ⚠️ Importante
 
-Si se hace al revés, se perderán las referencias de los sub-módulos en el repositorio principal y tendremos que resolver conflictos.
+Si trabajas en un repositorio que **contiene sub-módulos**:
 
+1. **Primero** haz `commit` y `push` en el sub-módulo
+2. **Después** haz `commit` y `push` en el repositorio principal
 
-## ✅ Resumen rápido
+❗ Si se hace al revés, se perderán las referencias y se generarán conflictos.
 
+---
+
+## ✅ Resumen rápido de comandos Docker Compose
+
+| Situación                                | Comando recomendado                                    |
+| ---------------------------------------- | ------------------------------------------------------ |
+| Cambié solo código (`src`)               | `docker compose up`                                    |
+| Cambié dependencias o Dockerfile (uno)   | `docker compose build <servicio> && docker compose up` |
+| Cambié dependencias o Dockerfile (todos) | `docker compose up --build`                            |
+| Contenedor falla pero imagen está bien   | `docker compose up --force-recreate`                   |
+| Parar todos los servicios                | `docker compose down`                                  |
+| Parar todo y borrar volúmenes            | `docker compose down -v`                               |
+| Ver logs de un servicio específico       | `docker compose logs -f <servicio>`                    |
+
+---
+
+✨ **Tip:** Mantén esta guía en el repositorio como `README.md` o `DEPLOY.md` para facilitar el onboarding del equipo.
+
+<<<<<<< HEAD
 | Situación                                   | Comando recomendado                           |
 |--------------------------------------------|----------------------------------------------|
 | Cambié solo código (src)                   | `docker compose up`                          |
@@ -124,3 +223,5 @@ Si se hace al revés, se perderán las referencias de los sub-módulos en el rep
     docker-compose -f docker-compose.prod.yml ps
     ```
 
+=======
+>>>>>>> b277b46d7b1f5a2a0fbd18ce3035347cae2412d5
