@@ -118,7 +118,7 @@ services:
 
   automatization:
     build:
-      context: ./automatization-new/automatization
+      context: ./ms-automatizacion
       dockerfile: dockerfile
     image: automatization:local
     depends_on:
